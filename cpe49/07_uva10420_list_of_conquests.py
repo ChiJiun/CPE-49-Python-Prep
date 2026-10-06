@@ -2,19 +2,19 @@
 Core: count the first token (country) of each line, then sort by country.
 Time: O(n log k).
 """
-import sys
 from collections import Counter
 
 def solve():
-    lines = sys.stdin.read().splitlines()
-    if not lines:
-        return
-    n = int(lines[0])
-    cnt = Counter()
-    for line in lines[1:n+1]:
-        if line.strip():
-            cnt[line.split()[0]] += 1
-    sys.stdout.write("\n".join(f"{country} {cnt[country]}" for country in sorted(cnt)))
+    n = int(input())
+    count = Counter()
+
+    for _ in range(n):
+        line = input()
+        country = line.split()[0]
+        count[country] += 1
+
+    for country in sorted(count):
+        print(country, count[country])
 
 if __name__ == "__main__":
     solve()

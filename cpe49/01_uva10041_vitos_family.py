@@ -2,24 +2,16 @@
 Core: the median minimizes the sum of absolute distances.
 Time: O(n log n) per case.
 """
-import sys
 
 def solve():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    if not data:
-        return
-    t = data[0]
-    p = 1
-    out = []
+    t = int(input())
     for _ in range(t):
-        n = data[p]
-        p += 1
-        a = data[p:p+n]
-        p += n
+        data = list(map(int, input().split()))
+        n = data[0]
+        a = data[1:1+n]
         a.sort()
         m = a[n // 2]
-        out.append(str(sum(abs(x - m) for x in a)))
-    sys.stdout.write("\n".join(out))
+        print(sum(abs(x - m) for x in a))
 
 if __name__ == "__main__":
     solve()

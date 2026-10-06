@@ -2,34 +2,34 @@
 Core: simulate the six face values while rolling in four directions.
 Time: O(number of commands).
 """
-import sys
 
 def solve():
-    lines = sys.stdin.read().splitlines()
-    idx = 0
-    out = []
-    while idx < len(lines):
-        if not lines[idx].strip():
-            idx += 1
-            continue
-        n = int(lines[idx])
-        idx += 1
+    while True:
+        n = int(input())
+
         if n == 0:
             break
-        top, north, east, south, west, bottom = 1, 2, 4, 5, 3, 6
+
+        top = 1
+        north = 2
+        east = 4
+        south = 5
+        west = 3
+        bottom = 6
+
         for _ in range(n):
-            cmd = lines[idx].strip()
-            idx += 1
-            if cmd == "north":
+            command = input()
+
+            if command == "north":
                 top, north, south, bottom = south, top, bottom, north
-            elif cmd == "south":
+            elif command == "south":
                 top, north, south, bottom = north, bottom, top, south
-            elif cmd == "east":
+            elif command == "east":
                 top, east, west, bottom = west, top, bottom, east
-            elif cmd == "west":
+            elif command == "west":
                 top, east, west, bottom = east, bottom, top, west
-        out.append(str(top))
-    sys.stdout.write("\n".join(out))
+
+        print(top)
 
 if __name__ == "__main__":
     solve()

@@ -2,28 +2,26 @@
 Core: mark strike days and ignore Friday/Saturday weekends.
 Time: O(N * P) in direct simulation.
 """
-import sys
 
 def solve():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    if not data:
-        return
-    t = data[0]
-    p = 1
-    out = []
+    t = int(input())
+
     for _ in range(t):
-        n = data[p]
-        parties = data[p + 1]
-        p += 2
-        periods = data[p:p+parties]
-        p += parties
+        n = int(input())
+        p = int(input())
+        periods = []
+
+        for _ in range(p):
+            periods.append(int(input()))
+
         lost = set()
+
         for h in periods:
             for day in range(h, n + 1, h):
-                if day % 7 not in (6, 0):
+                if day % 7 != 6 and day % 7 != 0:
                     lost.add(day)
-        out.append(str(len(lost)))
-    sys.stdout.write("\n".join(out))
+
+        print(len(lost))
 
 if __name__ == "__main__":
     solve()

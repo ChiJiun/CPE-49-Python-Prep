@@ -2,19 +2,28 @@
 Core: adjacent absolute differences must be exactly 1..n-1.
 Time: O(n).
 """
-import sys
 
 def solve():
-    out = []
-    for line in sys.stdin.buffer:
-        nums = list(map(int, line.split()))
-        if not nums:
+    while True:
+        try:
+            data = list(map(int, input().split()))
+        except EOFError:
+            break
+
+        if len(data) == 0:
             continue
-        n = nums[0]
-        a = nums[1:1+n]
-        diffs = {abs(a[i] - a[i-1]) for i in range(1, len(a))}
-        out.append("Jolly" if diffs == set(range(1, n)) else "Not jolly")
-    sys.stdout.write("\n".join(out))
+
+        n = data[0]
+        arr = data[1:1+n]
+        differences = set()
+
+        for i in range(1, n):
+            differences.add(abs(arr[i] - arr[i - 1]))
+
+        if differences == set(range(1, n)):
+            print("Jolly")
+        else:
+            print("Not jolly")
 
 if __name__ == "__main__":
     solve()

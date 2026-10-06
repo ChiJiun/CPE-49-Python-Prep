@@ -2,30 +2,40 @@
 Core: identify the duplicated endpoint; missing parallelogram vertex = a+b-duplicate.
 Time: O(1) per case.
 """
-import sys
 
 def solve():
-    out = []
-    for line in sys.stdin:
-        if not line.strip():
-            continue
-        v = list(map(float, line.split()))
-        p1 = (v[0], v[1])
-        p2 = (v[2], v[3])
-        p3 = (v[4], v[5])
-        p4 = (v[6], v[7])
+    while True:
+        try:
+            values = list(map(float, input().split()))
+        except EOFError:
+            break
+
+        p1 = (values[0], values[1])
+        p2 = (values[2], values[3])
+        p3 = (values[4], values[5])
+        p4 = (values[6], values[7])
+
         if p1 == p3:
-            dup, a, b = p1, p2, p4
+            duplicate = p1
+            a = p2
+            b = p4
         elif p1 == p4:
-            dup, a, b = p1, p2, p3
+            duplicate = p1
+            a = p2
+            b = p3
         elif p2 == p3:
-            dup, a, b = p2, p1, p4
+            duplicate = p2
+            a = p1
+            b = p4
         else:
-            dup, a, b = p2, p1, p3
-        x = a[0] + b[0] - dup[0]
-        y = a[1] + b[1] - dup[1]
-        out.append(f"{x:.3f} {y:.3f}")
-    sys.stdout.write("\n".join(out))
+            duplicate = p2
+            a = p1
+            b = p3
+
+        x = a[0] + b[0] - duplicate[0]
+        y = a[1] + b[1] - duplicate[1]
+
+        print(f"{x:.3f} {y:.3f}")
 
 if __name__ == "__main__":
     solve()

@@ -2,24 +2,24 @@
 Core: sum odd integers in each inclusive interval.
 Time: O(length of interval), small constraints.
 """
-import sys
 
 def solve():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    if not data:
-        return
-    t = data[0]
-    p = 1
-    out = []
+    t = int(input())
+
     for case in range(1, t + 1):
-        a, b = data[p], data[p + 1]
-        p += 2
+        a = int(input())
+        b = int(input())
+
         if a > b:
             a, b = b, a
-        first = a if a % 2 else a + 1
-        ans = sum(range(first, b + 1, 2))
-        out.append(f"Case {case}: {ans}")
-    sys.stdout.write("\n".join(out))
+
+        total = 0
+
+        for n in range(a, b + 1):
+            if n % 2 == 1:
+                total += n
+
+        print(f"Case {case}: {total}")
 
 if __name__ == "__main__":
     solve()

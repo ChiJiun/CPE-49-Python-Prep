@@ -1,19 +1,19 @@
-"""UVA 10931
+"""UVA 10931 - Parity
 Core: convert an integer to binary and count set bits.
 Time: O(log n).
 """
-import sys
 
 def solve():
-    out = []
-    for token in sys.stdin.buffer.read().split():
-        n = int(token)
+    while True:
+        n = int(input())
+
         if n == 0:
             break
-        b = bin(n)[2:]
-        c = b.count("1")
-        out.append(f"The parity of {b} is {c} (mod 2).")
-    sys.stdout.write("\n".join(out))
+
+        binary = bin(n)[2:]
+        ones = binary.count("1")
+
+        print(f"The parity of {binary} is {ones} (mod 2).")
 
 if __name__ == "__main__":
     solve()

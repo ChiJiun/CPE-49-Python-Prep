@@ -2,35 +2,37 @@
 Core: greedily represent n with Fibonacci weights 1,2,3,5,...
 Time: O(log n) per case.
 """
-import sys
 
 def fib_repr(n):
     if n == 0:
         return "0"
+
     fib = [1, 2]
+
     while fib[-1] <= n:
         fib.append(fib[-1] + fib[-2])
+
     if fib[-1] > n:
         fib.pop()
-    bits = []
+
+    result = ""
     remain = n
-    for f in reversed(fib):
-        if f <= remain:
-            bits.append("1")
-            remain -= f
+
+    for value in reversed(fib):
+        if value <= remain:
+            result += "1"
+            remain -= value
         else:
-            bits.append("0")
-    return "".join(bits)
+            result += "0"
+
+    return result
 
 def solve():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    if not data:
-        return
-    t = data[0]
-    out = []
-    for n in data[1:1+t]:
-        out.append(f"{n} = {fib_repr(n)} (fib)")
-    sys.stdout.write("\n".join(out))
+    t = int(input())
+
+    for _ in range(t):
+        n = int(input())
+        print(f"{n} = {fib_repr(n)} (fib)")
 
 if __name__ == "__main__":
     solve()

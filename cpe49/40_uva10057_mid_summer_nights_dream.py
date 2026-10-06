@@ -2,24 +2,37 @@
 Core: optimal integers are between the two middle values of the sorted data.
 Time: O(n log n) per case.
 """
-import sys
+
+def read_n_ints(n):
+    values = []
+
+    while len(values) < n:
+        values.extend(list(map(int, input().split())))
+
+    return values
 
 def solve():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    p = 0
-    out = []
-    while p < len(data):
-        n = data[p]
-        p += 1
-        a = data[p:p+n]
-        p += n
-        a.sort()
-        lo = a[(n - 1) // 2]
-        hi = a[n // 2]
-        count = sum(1 for x in a if lo <= x <= hi)
-        choices = hi - lo + 1
-        out.append(f"{lo} {count} {choices}")
-    sys.stdout.write("\n".join(out))
+    while True:
+        try:
+            n = int(input())
+        except EOFError:
+            break
+
+        values = read_n_ints(n)
+        values.sort()
+
+        low = values[(n - 1) // 2]
+        high = values[n // 2]
+
+        count = 0
+
+        for value in values:
+            if low <= value <= high:
+                count += 1
+
+        choices = high - low + 1
+
+        print(low, count, choices)
 
 if __name__ == "__main__":
     solve()

@@ -1,71 +1,71 @@
 # 考前高報酬複習清單
 
+本 repo 採用考場手寫優先風格：**`input()`、`map()`、`list()`、`split()`、`print()`**。
+EOF 題使用 `try/except EOFError`。
+
 ## 1. 最容易直接換成分數的能力
 
-### EOF 與輸入
+### 輸入先判斷資料怎麼分組
 
-CPE/UVA 很多一星題真正容易失分的是輸入處理，不是演算法。
+常見四種：
 
-熟悉：
+```python
+# 一行兩個整數
+a, b = map(int, input().split())
 
-- 單行兩整數直到 EOF
-- 第一行 testcase 數量
-- 0 / 0 0 作為終止條件
-- 空白行分隔 testcase
-- 整行字串，不能用 split() 破壞空白
-- 一題可能跨多行讀資料
+# 一行多個整數
+arr = list(map(int, input().split()))
+
+# 第一行 T
+t = int(input())
+for _ in range(t):
+    ...
+
+# EOF
+while True:
+    try:
+        ...
+    except EOFError:
+        break
+```
+
+注意：
+
+- 空格分隔 → `.split()`
+- 整行字串 → 直接 `input()`
+- 第一行 testcase 數量 → 用 `for _ in range(t)`
+- `0` / `0 0` 結束 → 讀到 sentinel 後 `break`
+- EOF → `try/except EOFError`
+- 空白行可能是 testcase 的一部分時，不要隨便跳過
 
 ### Counting / frequency
 
 最常用：
 
-- dict
-- collections.Counter
-- set
-- sorted(..., key=...)
+- `dict`
+- `collections.Counter`
+- `set`
+- `sorted(..., key=...)`
 
-代表題：
-
-- UVA10420
-- UVA10008
-- UVA10252
-- UVA10062
-- UVA10226
+代表題：UVA10420、UVA10008、UVA10252、UVA10062、UVA10226。
 
 ### 整數與數學
 
 一定熟：
 
-- abs
-- //, %
-- gcd
-- isqrt
+- `abs`
+- `//`, `%`
+- `gcd`
+- `isqrt`
 - digit sum
 - base conversion
 - parity / bit count
 
-代表題：
-
-- UVA10055
-- UVA10929
-- UVA11332
-- UVA10812
-- UVA11461
-- UVA10193
-- UVA10931
-
 ### Simulation
 
-先把狀態表示乾淨，再實作規則。
+先把狀態表示乾淨，再照規則更新。
 
-代表題：
-
-- UVA10035
-- UVA100
-- UVA10050
-- UVA10189
-- UVA10409
-- UVA118
+代表題：UVA10035、UVA100、UVA10050、UVA10189、UVA10409、UVA118。
 
 ### Sorting
 
@@ -73,78 +73,22 @@ CPE/UVA 很多一星題真正容易失分的是輸入處理，不是演算法。
 
 - primary / secondary key 方向不同
 - tie-breaker
-- 負數的 remainder 與 Python % 語意不同
-
-代表題：
-
-- UVA10057
-- UVA10062
-- UVA299
-- UVA11321
-
----
+- 負數 remainder 與 Python `%` 語意不同
 
 ## 2. 今天的刷題順序
 
-### 第一輪：快速題
+第一輪：UVA10055、11332、10071、10931、10812、10929、10420、10008。
 
-1. UVA10055
-2. UVA11332
-3. UVA10071
-4. UVA10931
-5. UVA10812
-6. UVA10929
-7. UVA10420
-8. UVA10008
+第二輪：UVA10035、10038、11461、10193、10050、299、10189。
 
-目標：每題看到就知道 1–2 分鐘內怎麼寫。
+第三輪：UVA10252、490、272、10062、10226、11349。
 
-### 第二輪：典型 simulation / set / sorting
+## 3. 卡題時先回答
 
-1. UVA10035
-2. UVA10038
-3. UVA11461
-4. UVA10193
-5. UVA10050
-6. UVA299
-7. UVA10189
+1. Input 是 T、sentinel 還是 EOF？
+2. 一行是一組資料，還是可能跨行？
+3. Output 是否有 Case / 空行 / 小數位格式？
+4. Constraints 暗示什麼複雜度？
+5. state / invariant 是什麼？
 
-### 第三輪：補容易 WA 的格式題
-
-1. UVA10252
-2. UVA490
-3. UVA272
-4. UVA10062
-5. UVA10226
-6. UVA11349
-
----
-
-## 3. 卡題時的判斷
-
-讀題後先回答四件事：
-
-1. Input 結束條件是什麼？
-2. Output 是否有 Case / 空行 / 小數位格式？
-3. Constraints 暗示 O(n)、O(n log n) 還是可以 brute force？
-4. 這題真正的 state / invariant 是什麼？
-
-若 10 分鐘後連方法都沒有，不要繼續 implementation。
-
-若方法有但 implementation 很長，先掃其他題，確認沒有更便宜的 AC。
-
----
-
-## 4. AC 前的最小測試
-
-至少自己測：
-
-- 最小值
-- 最大或接近上界
-- 空集合 / 單元素（若允許）
-- 已排序 / 逆序
-- 重複值
-- 負數（若允許）
-- termination condition
-- EOF
-- tie
+若約 25–30 分鐘仍沒有明確 implementation 路線，先換題。

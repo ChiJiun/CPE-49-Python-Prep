@@ -2,27 +2,23 @@
 Core: evaluate a finite repeating geometric process.
 Time: O(1) per case.
 """
-import sys
 
 def solve():
-    a = sys.stdin.buffer.read().split()
-    if not a:
-        return
-    t = int(a[0])
-    k = 1
-    out = []
+    t = int(input())
+
     for _ in range(t):
-        n = int(a[k])
-        p = float(a[k + 1])
-        i = int(a[k + 2])
-        k += 3
+        n, p, i = input().split()
+        n = int(n)
+        p = float(p)
+        i = int(i)
+
         if p == 0.0:
-            x = 0.0
+            answer = 0.0
         else:
             q = 1.0 - p
-            x = p * q ** (i - 1) / (1.0 - q ** n)
-        out.append(f"{x:.4f}")
-    sys.stdout.write("\n".join(out))
+            answer = p * q ** (i - 1) / (1.0 - q ** n)
+
+        print(f"{answer:.4f}")
 
 if __name__ == "__main__":
     solve()

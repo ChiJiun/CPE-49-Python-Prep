@@ -2,19 +2,17 @@
 Core: count perfect squares in [a,b] using integer square roots.
 Time: O(1) per case.
 """
-import sys
 from math import isqrt
 
 def solve():
-    out = []
-    for line in sys.stdin.buffer:
-        if not line.strip():
-            continue
-        a, b = map(int, line.split())
+    while True:
+        a, b = map(int, input().split())
+
         if a == 0 and b == 0:
             break
-        out.append(str(isqrt(b) - isqrt(a - 1)))
-    sys.stdout.write("\n".join(out))
+
+        answer = isqrt(b) - isqrt(a - 1)
+        print(answer)
 
 if __name__ == "__main__":
     solve()

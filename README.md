@@ -9,6 +9,20 @@
 3. 降低 WA：EOF、格式、邊界條件、tie-breaker
 4. 先穩定拿 2 題，再攻第 3 題
 
+## 本 repo 的 Python 風格
+
+為了方便 CPE 考場直接手寫，所有題解統一優先使用：
+
+```python
+input()
+map()
+list()
+split()
+print()
+```
+
+EOF 題使用 `while True + try/except EOFError`。整個 repo 統一採用 `input()` / `print()` 的考場手寫風格。
+
 > CPE 官方目前的評判環境包含 Python 3.9.6；一顆星選集共 49 題。  
 > 官方環境與一顆星選集：https://cpe.cse.nsysu.edu.tw/environment.php
 

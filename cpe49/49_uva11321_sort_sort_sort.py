@@ -2,31 +2,43 @@
 Core: sort by C/C++ remainder, odd before even, odd descending, even ascending.
 Time: O(n log n) per case.
 """
-import sys
 
 def c_remainder(n, m):
-    return n % m if n >= 0 else -((-n) % m)
+    if n >= 0:
+        return n % m
+
+    return -((-n) % m)
 
 def sort_key(n, m):
-    r = c_remainder(n, m)
-    odd = (n % 2 != 0)
-    return (r, 0 if odd else 1, -n if odd else n)
+    remainder = c_remainder(n, m)
+    odd = n % 2 != 0
+
+    if odd:
+        return (remainder, 0, -n)
+
+    return (remainder, 1, n)
+
+def read_n_ints(n):
+    values = []
+
+    while len(values) < n:
+        values.extend(list(map(int, input().split())))
+
+    return values
 
 def solve():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    p = 0
-    out = []
-    while p + 1 < len(data):
-        n, m = data[p], data[p + 1]
-        p += 2
-        out.append(f"{n} {m}")
+    while True:
+        n, m = map(int, input().split())
+        print(n, m)
+
         if n == 0 and m == 0:
             break
-        a = data[p:p+n]
-        p += n
-        a.sort(key=lambda x: sort_key(x, m))
-        out.extend(map(str, a))
-    sys.stdout.write("\n".join(out))
+
+        values = read_n_ints(n)
+        values.sort(key=lambda x: sort_key(x, m))
+
+        for value in values:
+            print(value)
 
 if __name__ == "__main__":
     solve()

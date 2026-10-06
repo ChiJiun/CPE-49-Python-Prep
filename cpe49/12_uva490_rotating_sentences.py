@@ -2,20 +2,31 @@
 Core: output columns left-to-right while reading original rows bottom-to-top.
 Time: O(rows * max_width).
 """
-import sys
 
 def solve():
-    lines = sys.stdin.read().splitlines()
-    if not lines:
+    lines = []
+
+    while True:
+        try:
+            lines.append(input())
+        except EOFError:
+            break
+
+    if len(lines) == 0:
         return
-    width = max(map(len, lines))
-    out = []
-    for c in range(width):
-        row = []
+
+    width = max(len(line) for line in lines)
+
+    for col in range(width):
+        result = ""
+
         for line in reversed(lines):
-            row.append(line[c] if c < len(line) else " ")
-        out.append("".join(row))
-    sys.stdout.write("\n".join(out))
+            if col < len(line):
+                result += line[col]
+            else:
+                result += " "
+
+        print(result)
 
 if __name__ == "__main__":
     solve()

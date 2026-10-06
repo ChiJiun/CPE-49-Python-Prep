@@ -2,35 +2,56 @@
 Core: positive strictly increasing terms and all pair sums (i<=j) unique.
 Time: O(n^2).
 """
-import sys
 
 def solve():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    p = 0
     case = 1
-    out = []
-    while p < len(data):
-        n = data[p]
-        p += 1
-        a = data[p:p+n]
-        p += n
-        ok = len(a) == n and all(x > 0 for x in a) and all(a[i] < a[i+1] for i in range(n-1))
+
+    while True:
+        try:
+            line = input()
+        except EOFError:
+            break
+
+        if line == "":
+            continue
+
+        n = int(line)
+
+        values = []
+        while len(values) < n:
+            values.extend(list(map(int, input().split())))
+
+        ok = True
+
+        for i in range(n):
+            if values[i] <= 0:
+                ok = False
+            if i > 0 and values[i] <= values[i - 1]:
+                ok = False
+
         seen = set()
+
         if ok:
             for i in range(n):
                 for j in range(i, n):
-                    s = a[i] + a[j]
-                    if s in seen:
+                    total = values[i] + values[j]
+
+                    if total in seen:
                         ok = False
                         break
-                    seen.add(s)
+
+                    seen.add(total)
+
                 if not ok:
                     break
-        label = "a B2-Sequence." if ok else "not a B2-Sequence."
-        out.append(f"Case #{case}: It is {label}")
-        out.append("")
+
+        if ok:
+            print(f"Case #{case}: It is a B2-Sequence.")
+        else:
+            print(f"Case #{case}: It is not a B2-Sequence.")
+
+        print()
         case += 1
-    sys.stdout.write("\n".join(out))
 
 if __name__ == "__main__":
     solve()

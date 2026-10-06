@@ -2,19 +2,29 @@
 Core: replace alternating double quotes with TeX opening/closing quotes.
 Time: O(total characters).
 """
-import sys
 
 def solve():
-    text = sys.stdin.read()
     opening = True
-    out = []
-    for ch in text:
-        if ch == '"':
-            out.append("``" if opening else "''")
-            opening = not opening
-        else:
-            out.append(ch)
-    sys.stdout.write("".join(out))
+
+    while True:
+        try:
+            line = input()
+        except EOFError:
+            break
+
+        result = ""
+
+        for ch in line:
+            if ch == '"':
+                if opening:
+                    result += "``"
+                else:
+                    result += "''"
+                opening = not opening
+            else:
+                result += ch
+
+        print(result)
 
 if __name__ == "__main__":
     solve()
